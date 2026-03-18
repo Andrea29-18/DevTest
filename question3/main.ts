@@ -48,7 +48,7 @@ export class Connect4 {
     this.board[row][col] = player;
 
 
-    // Check vertical victory and use the "player"
+    // Check vertical victory
     let count = 1;  // Include the piece placed
 
     // UP victory check
@@ -64,6 +64,28 @@ export class Connect4 {
     while (r < 6 && this.board[r][col] === player) {
       count++;
       r++;
+    }
+
+    if (count >= 4) {
+      this.finished = true;
+      return `Player ${player} wins!`;
+    }
+
+    // Check horizontal victory
+    count = 1;
+
+    // Left victory check
+    let c = col - 1;
+    while (c >= 0 && this.board[row][c] === player) {
+      count++;
+      c--;
+    }
+
+    // Right victory check
+    c = col + 1;
+    while (c < 7 && this.board[row][c] === player) {
+      count++;
+      c++;
     }
 
     if (count >= 4) {
