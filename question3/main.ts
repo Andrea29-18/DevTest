@@ -93,6 +93,59 @@ export class Connect4 {
       return `Player ${player} wins!`;
     }
 
+    // Check diagonal victory 
+    count = 1;
+
+    // Top-left
+    let dr = row - 1;
+    let dc = col - 1;
+
+    while (dr >= 0 && dc >= 0 && this.board[dr][dc] === player) {
+      count++;
+      dr--;
+      dc--;
+    }
+    // Bottom-right
+    dr = row + 1;
+    dc = col + 1;
+
+    while (dr < 6 && dc < 7 && this.board[dr][dc] === player) {
+      count++;
+      dr++;
+      dc++;
+    }
+
+    if (count >= 4) {
+      this.finished = true;
+      return `Player ${player} wins!`;
+    }
+
+    // Check diagonal ↙ (top-right + bottom-left)
+    count = 1;
+
+    // Top-right
+    dr = row - 1;
+    dc = col + 1;
+    while (dr >= 0 && dc < 7 && this.board[dr][dc] === player) {
+      count++;
+      dr--;
+      dc++;
+    }
+
+    // Bottom-left
+    dr = row + 1;
+    dc = col - 1;
+    while (dr < 6 && dc >= 0 && this.board[dr][dc] === player) {
+      count++;
+      dr++;
+      dc--;
+    }
+
+    if (count >= 4) {
+      this.finished = true;
+      return `Player ${player} wins!`;
+    }
+
     // Normal message if no one wins
     const message = `Player ${player} has a turn`;
 
